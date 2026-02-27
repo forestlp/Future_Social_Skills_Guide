@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>游戏实验室 - 全球 12 经典训练</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: { colors: { brand: { bg: '#FDFBF7', primary: '#D4A373', dark: '#353535' } } } } }
+    </script>
+</head>
+<body class="bg-brand-bg p-4 sm:p-8">
+    <div class="max-w-6xl mx-auto">
+        <a href="index.html" class="text-brand-primary mb-6 inline-block">← 返回主页</a>
+        <header class="mb-12 text-center">
+            <h1 class="text-4xl font-bold text-brand-dark mb-4">🧪 全球 12 经典社交力训练</h1>
+            <p class="text-gray-600">整理自蒙特梭利、华德福及现代行为心理学研究</p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- 游戏 1-12 数据对象 -->
+            <script>
+                const games = [
+                    { title: "红灯停绿灯行", origin: "全球通行", goal: "冲动抑制", desc: "训练宝宝在兴奋时瞬间停下，培养前额叶皮层的控制力。" },
+                    { title: "静寂游戏", origin: "蒙特梭利", goal: "自我觉察", desc: "全体保持安静，倾听微小的声音，培养耐心与内心平衡。" },
+                    { title: "小镜子模仿", origin: "发展心理学", goal: "共情基础", desc: "模仿对方的表情，激活镜像神经元，理解他人感受。" },
+                    { title: "角色杂货铺", origin: "传统育儿", goal: "社会契约", desc: "模拟买卖行为，学习礼貌用语（请、谢谢）与交换原则。" },
+                    { title: "传递水杯", origin: "华德福", goal: "团队责任", desc: "多人围圈传递装满水的杯子而不洒出，体验团队协作。" },
+                    { title: "情绪变变变", origin: "美国SEL课程", goal: "情绪命名", desc: "看图卡识别‘沮丧’‘惊喜’等复杂情绪并说出名称。" },
+                    { title: "小动物搬家", origin: "感统训练", goal: "合作解决问题", desc: "与家长合力搬运巨大的‘家’（纸箱），学习协调步伐。" },
+                    { title: "等一下钟", origin: "意志力训练", goal: "延迟满足", desc: "在铃声响前不能吃饼干，每成功一次获得一个小奖励。" },
+                    { title: "小小解说员", origin: "英国思维训练", goal: "叙事能力", desc: "通过图片讲出发生的故事，理解社会行为的前因后果。" },
+                    { title: "轮流滑梯", origin: "公园社交", goal: "规则遵循", desc: "在模拟场景中练习排队，理解‘权利是有序的’。" },
+                    { title: "玩偶调解员", origin: "瑞典教育", goal: "冲突处理", desc: "用玩偶演习吵架，让宝宝想办法让它们‘握手言和’。" },
+                    { title: "寻找宝藏", origin: "探险游戏", goal: "观察与指令", desc: "根据家长提供的线索找东西，培养对社交指令的敏感度。" }
+                ];
+
+                document.write(games.map((g, i) => `
+                    <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 hover:scale-105 transition-transform">
+                        <div class="text-brand-primary font-bold mb-2">#${i+1} ${g.origin}</div>
+                        <h3 class="text-xl font-bold mb-2">${g.title}</h3>
+                        <div class="bg-brand-bg text-xs px-2 py-1 inline-block rounded mb-4 text-brand-primary">核心目标：${g.goal}</div>
+                        <p class="text-sm text-gray-600">${g.desc}</p>
+                    </div>
+                `).join(''));
+            </script>
+        </div>
+    </div>
+</body>
+</html>

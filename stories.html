@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>启蒙故事 - 社交逻辑培养</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: { colors: { brand: { bg: '#FDFBF7', secondary: '#CCD5AE', dark: '#353535' } } } } }
+    </script>
+</head>
+<body class="bg-brand-bg p-4 sm:p-8">
+    <div class="max-w-5xl mx-auto">
+        <a href="index.html" class="text-gray-500 mb-6 inline-block">← 返回主页</a>
+        <header class="mb-12">
+            <h1 class="text-4xl font-bold text-brand-dark mb-4">📖 启蒙故事：构建宝宝的社交逻辑</h1>
+            <p class="text-gray-600">精选自世界文学遗产，重点在于故事后的“互动提问”</p>
+        </header>
+
+        <div class="space-y-6">
+            <script>
+                const stories = [
+                    { t: "狮子与报恩的老鼠", o: "伊索寓言", m: "即使是弱小者也能帮助强大者，培养尊重与善良。" },
+                    { t: "拔萝卜", o: "俄罗斯民间故事", m: "人多力量大，理解‘协作’是解决难题的唯一方式。" },
+                    { t: "小红帽", o: "格林童话", m: "识别陌生人的社交意图，建立自我保护意识。" },
+                    { t: "彩虹色的花", o: "波兰心理绘本", m: "无私分享的快乐，理解慷慨带来的长期社交回报。" },
+                    { t: "三只小猪", o: "英国童话", m: "勤劳与长远规划，抵御即时诱惑。" },
+                    { t: "丑小鸭", o: "安徒生童话", m: "接纳自己的独特性，培养在排挤下的心理韧性。" },
+                    { t: "龟兔赛跑", o: "伊索寓言", m: "持之以恒的社交诚信与踏实。" },
+                    { t: "石头汤", o: "中欧传说", m: "通过分享与引导，把孤独的个体聚集成社区。" },
+                    { t: "金头发与三只熊", o: "英国童话", m: "尊重私人空间与他人物权的物理边界。" },
+                    { t: "狐狸与仙鹤", o: "拉封丹寓言", m: "真正的尊重是‘以对方需要的方式’去对待他人。" },
+                    { t: "猜猜我有多爱你", o: "现代经典", m: "情感表达的练习，让爱在交流中具象化。" },
+                    { t: "大卫不可以", o: "现代绘本", m: "理解规则的背后是爱，缓解对‘禁令’的社交抗拒。" }
+                ];
+
+                document.write(stories.map(s => `
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border-l-8 border-brand-secondary flex flex-col md:flex-row gap-6">
+                        <div class="md:w-1/4 font-bold text-brand-dark">${s.t}<br><span class="text-xs font-normal text-gray-400">来源：${s.o}</span></div>
+                        <div class="md:w-3/4">
+                            <p class="text-gray-600 text-sm mb-2">核心寓意：${s.m}</p>
+                            <div class="bg-brand-bg p-3 rounded text-xs text-brand-dark italic">
+                                建议问宝宝：“如果是你，你会愿意帮助大狮子吗？”
+                            </div>
+                        </div>
+                    </div>
+                `).join(''));
+            </script>
+        </div>
+    </div>
+</body>
+</html>

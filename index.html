@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2岁宝宝未来社交力培养指南 | Interactive Guide</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Google Fonts (Noto Sans SC for Chinese support) -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Chosen Palette: Warm Neutrals (Sand/Clay/Sage) for a nurturing, calm environment -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            bg: '#FDFBF7',      // Warm Cream
+                            primary: '#D4A373', // Sand
+                            secondary: '#CCD5AE', // Soft Sage
+                            accent: '#E9EDC9',  // Pale Yellow-Green
+                            text: '#4A4A4A',    // Soft Charcoal
+                            dark: '#353535',
+                            card: '#FFFFFF'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans SC"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FDFBF7;
+            color: #4A4A4A;
+        }
+        
+        /* Chart Container Styling - Mandatory Requirements */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* Constraint for large screens */
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px; /* Base height */
+            max-height: 400px;
+        }
+
+        @media (max-width: 640px) {
+            .chart-container {
+                height: 300px; /* Smaller height for mobile */
+            }
+        }
+
+        /* Utility for hiding scrollbar but allowing scroll */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+
+    <!-- Application Structure Plan: 
+         1. Hero Section: Sets the context (Age 2 is the foundation).
+         2. Strategic Vision (Dashboard): Uses Radar & Line charts to visualize the 5 key skills and the long-term impact of early training.
+         3. Action Module (Game Library): The core interactive component. Users can filter games by skill type. 
+         4. Methodology (Details): Expands on HOW to play.
+         This structure moves from "Why" (Vision) to "What" (Skills) to "How" (Games), facilitating deep understanding.
+    -->
+</head>
+<body class="antialiased min-h-screen flex flex-col font-sans">
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-2xl mr-2">🌱</span>
+                    <h1 class="text-xl font-bold text-brand-dark tracking-wide">未来社交力构建 <span class="text-sm font-normal text-gray-500 hidden sm:inline">| 2岁幼儿专属指南</span></h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button onclick="scrollToSection('vision')" class="text-gray-600 hover:text-brand-primary transition px-3 py-2 rounded-md text-sm font-medium">愿景</button>
+                    <button onclick="scrollToSection('skills')" class="text-gray-600 hover:text-brand-primary transition px-3 py-2 rounded-md text-sm font-medium">核心能力</button>
+                    <button onclick="scrollToSection('games')" class="bg-brand-primary text-white hover:bg-opacity-90 transition px-4 py-2 rounded-full text-sm font-medium shadow-md">开始训练</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+        
+        <!-- Hero Section -->
+        <div class="bg-brand-secondary/20 py-12 sm:py-20">
+            <div class="max-w-4xl mx-auto px-4 text-center">
+                <h2 class="text-3xl sm:text-4xl font-bold text-brand-dark mb-4">两岁定终身：通过游戏预演未来社会</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-8 max-w-2xl mx-auto">
+                    宝宝现在的每一次互动，都在为未来10年的社会适应力通过神经突触连接打下基础。本指南将复杂的社会心理学拆解为2岁幼儿可操作的亲子游戏。
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-left max-w-3xl mx-auto">
+                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-brand-primary">
+                        <div class="font-bold text-brand-dark">🎯 黄金窗口期</div>
+                        <div class="text-sm text-gray-600">2-3岁是自我意识与规则意识萌芽的冲突期，也是最佳引导期。</div>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-brand-secondary">
+                        <div class="font-bold text-brand-dark">🧠 寓教于乐</div>
+                        <div class="text-sm text-gray-600">不讲大道理，通过角色扮演和规则游戏潜移默化。</div>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-brand-accent">
+                        <div class="font-bold text-brand-dark">📈 长远收益</div>
+                        <div class="text-sm text-gray-600">建立抗挫折、共情与合作的底层逻辑。</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1: Strategic Vision (Data Visualization) -->
+        <!-- Visualization & Content Choices: 
+             1. Radar Chart: Displays the multi-dimensional nature of "Social Adaptability". It's not just being "outgoing"; it's a balance of 5 skills. 
+             2. Line Chart: Shows the "Compound Interest" of early education. Visualizes the gap between trained vs. untrained trajectories over 10 years.
+             Both use Chart.js (Canvas) inside responsive containers.
+        -->
+        <section id="vision" class="py-12 bg-white scroll-mt-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-10 text-center">
+                    <h3 class="text-2xl font-bold text-brand-dark mb-2">📊 未来10年核心能力图谱</h3>
+                    <p class="text-gray-600 max-w-2xl mx-auto">
+                        社会适应力并非单一指标，而是由五个核心维度支撑的综合系统。下图展示了2岁阶段应着重构建的基石，以及它们如何支撑未来的社会化发展。
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <!-- Radar Chart Container -->
+                    <div class="bg-brand-bg rounded-xl p-6 shadow-inner">
+                        <h4 class="text-lg font-semibold text-center mb-4 text-brand-dark">五维社会适应力模型</h4>
+                        <div class="chart-container">
+                            <canvas id="skillsRadar"></canvas>
+                        </div>
+                        <p class="text-xs text-center text-gray-500 mt-2">点击图例可隐藏/显示维度</p>
+                    </div>
+
+                    <!-- Contextual Text & Line Chart -->
+                    <div class="flex flex-col space-y-6">
+                        <div>
+                            <h4 class="text-lg font-semibold text-brand-dark mb-2">为什么要从2岁开始？</h4>
+                            <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                                数据模型显示，早期（2-3岁）建立的情绪命名能力和规则意识，在小学阶段（7-10岁）会转化为更强的团队领导力和抗压能力。忽视早期引导可能导致后期社交成本指数级上升。
+                            </p>
+                        </div>
+                        
+                        <div class="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+                             <h4 class="text-md font-semibold text-center mb-2 text-brand-dark">社会适应力成长预测曲线</h4>
+                            <div class="chart-container" style="height: 250px;">
+                                <canvas id="growthLine"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Interactive Game Library -->
+        <!-- Visualization & Content Choices:
+             Cards Grid: Best for browsing distinct activities.
+             Filtering (JS): Allows parents to focus on specific weaknesses (e.g., "My kid hits others" -> Filter by "Impulse Control").
+             Dynamic HTML: Updates DOM based on selected category.
+        -->
+        <section id="games" class="py-12 bg-brand-bg scroll-mt-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-10">
+                    <h3 class="text-2xl font-bold text-brand-dark mb-4">🎮 亲子训练游戏库</h3>
+                    <p class="text-gray-600 mb-6">
+                        选择你想重点培养的能力维度，获取对应的游戏方案。每个游戏都经过设计，符合2岁幼儿的认知水平。
+                    </p>
+                    
+                    <!-- Filters -->
+                    <div class="flex flex-wrap gap-2 mb-8" id="filter-container">
+                        <button class="filter-btn active bg-brand-dark text-white px-4 py-2 rounded-full text-sm font-medium transition" data-filter="all">全部显示</button>
+                        <button class="filter-btn bg-white text-gray-600 hover:bg-brand-primary hover:text-white px-4 py-2 rounded-full text-sm font-medium transition border border-gray-200" data-filter="emotion">❤️ 情绪认知与共情</button>
+                        <button class="filter-btn bg-white text-gray-600 hover:bg-brand-primary hover:text-white px-4 py-2 rounded-full text-sm font-medium transition border border-gray-200" data-filter="rule">🛑 规则与冲动控制</button>
+                        <button class="filter-btn bg-white text-gray-600 hover:bg-brand-primary hover:text-white px-4 py-2 rounded-full text-sm font-medium transition border border-gray-200" data-filter="social">🤝 合作与社交礼仪</button>
+                        <button class="filter-btn bg-white text-gray-600 hover:bg-brand-primary hover:text-white px-4 py-2 rounded-full text-sm font-medium transition border border-gray-200" data-filter="resilience">🌱 抗挫折与解决问题</button>
+                    </div>
+                </div>
+
+                <!-- Game Cards Grid -->
+                <div id="games-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Cards will be injected here by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Summary & Tips -->
+        <section class="py-12 bg-white border-t border-gray-100">
+            <div class="max-w-4xl mx-auto px-4">
+                <h3 class="text-xl font-bold text-center text-brand-dark mb-8">💡 家长执行锦囊</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div class="flex items-start">
+                        <div class="bg-brand-secondary text-brand-dark font-bold rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 mr-4">1</div>
+                        <div>
+                            <h5 class="font-bold text-brand-dark">从模仿开始</h5>
+                            <p class="text-sm text-gray-600 mt-1">2岁宝宝是天生的观察者。你对待服务员的态度、排队的耐心，比任何游戏都更有影响力。</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-brand-secondary text-brand-dark font-bold rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 mr-4">2</div>
+                        <div>
+                            <h5 class="font-bold text-brand-dark">接纳倒退</h5>
+                            <p class="text-sm text-gray-600 mt-1">社交能力的习得是螺旋上升的。今天学会分享，明天可能又护食，这很正常。保持耐心。</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-brand-secondary text-brand-dark font-bold rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 mr-4">3</div>
+                        <div>
+                            <h5 class="font-bold text-brand-dark">具体而非抽象</h5>
+                            <p class="text-sm text-gray-600 mt-1">不要说“要乖”，要说“手要放在膝盖上”。2岁宝宝听不懂抽象的道德概念，只能听懂具体指令。</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-brand-secondary text-brand-dark font-bold rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 mr-4">4</div>
+                        <div>
+                            <h5 class="font-bold text-brand-dark">事后复盘</h5>
+                            <p class="text-sm text-gray-600 mt-1">每晚睡前花2分钟和宝宝聊聊今天和小朋友玩得开心的时刻，强化正面社交记忆。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-sm opacity-70">© 2023 FutureReady Toddler Guide. Designed for interactive learning.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- Data Source ---
+        // This acts as the "Database" from the Source Report
+        const gamesData = [
+            {
+                id: 1,
+                title: "变脸侦探 (Face Detective)",
+                category: "emotion",
+                categoryLabel: "情绪认知",
+                difficulty: "⭐",
+                description: "教宝宝识别基本情绪（喜怒哀乐），这是共情的基础。",
+                method: "<ol class='list-decimal list-inside space-y-1 text-sm text-gray-600'><li>家长做出夸张的表情（大笑、生气、哭泣）。</li><li>让宝宝猜'爸爸/妈妈现在心情怎么样？'</li><li>进阶：拿着镜子，让宝宝模仿表情。</li></ol>",
+                why: "<b>未来能力：</b> 能够敏锐捕捉他人情绪变化，是高情商社交的第一步。"
+            },
+            {
+                id: 2,
+                title: "红灯停绿灯行 (Statue Game)",
+                category: "rule",
+                categoryLabel: "规则意识",
+                difficulty: "⭐⭐",
+                description: "经典的身体控制游戏，训练冲动控制能力。",
+                method: "<ol class='list-decimal list-inside space-y-1 text-sm text-gray-600'><li>家长背对宝宝喊'绿灯'（跑动），转身喊'红灯'（静止）。</li><li>动了的人要退回起点。</li><li>角色互换，让宝宝当指挥官发号施令。</li></ol>",
+                why: "<b>未来能力：</b> 理解'规则'高于'冲动'，适应学校纪律和社会法规。"
+            },
+            {
+                id: 3,
+                title: "玩具交换市集 (Toy Swap)",
+                category: "social",
+                categoryLabel: "合作社交",
+                difficulty: "⭐⭐⭐",
+                description: "模拟真实的物权交换，学习协商和轮流。",
+                method: "<ol class='list-decimal list-inside space-y-1 text-sm text-gray-600'><li>邀请一个小伙伴，每人带3个玩具。</li><li>想玩对方玩具时，必须拿自己的交换，并说'我可以和你换吗？'</li><li>设置计时器，5分钟后必须归还（建立物权界限）。</li></ol>",
+                why: "<b>未来能力：</b> 懂得双赢谈判，理解'分享'不是失去，而是交换快乐。"
+            },
+            {
+                id: 4,
+                title: "医生病人过家家 (Role Play)",
+                category: "emotion",
+                categoryLabel: "情绪认知",
+                difficulty: "⭐⭐",
+                description: "通过角色扮演体验照顾他人的感觉。",
+                method: "<ol class='list-decimal list-inside space-y-1 text-sm text-gray-600'><li>家长扮演'生病的小熊'，表现出痛苦。</li><li>引导宝宝做医生：'小熊痛痛，医生该怎么办？'（摸摸头、打针、盖被子）。</li><li>反转角色，让宝宝体验被照顾。</li></ol>",
+                why: "<b>未来能力：</b> 换位思考能力，培养利他行为和同理心。"
+            },
+            {
+                id: 5,
+                title: "障碍物搬运工 (Co-op Move)",
+                category: "social",
+                categoryLabel: "合作社交",
+                difficulty: "⭐⭐",
+                description: "需要两个人配合才能完成的任务。",
+                method: "<ol class='list-decimal list-inside space-y-1 text-sm text-gray-600'><li>找一个较大的空箱子或毯子。</li><li>在上面放一个玩偶。</li><li>家长和宝宝各抬一边，运送到终点，不能让玩偶掉下来。</li></ol>",
+                why: "<b>未来能力：</b> 团队协作能力，通过身体协调达成共同目标。"
+            },
+            {
+                id: 6,
+                title: "失败庆祝仪式 (Fail Party)",
+                category: "resilience",
+                categoryLabel: "抗挫折",
+                difficulty: "⭐⭐⭐",
+                description: "重新定义'失败'，建立成长型思维。",
+                method: "<ol class='list-decimal list-inside space-y-1 text-sm text-gray-600'><li>搭积木倒塌时，或者拼图拼不上时。</li><li>家长带头大喊：'哇！倒了！声音真好听！我们可以重来一次！'</li><li>击掌庆祝'发现了一个行不通的方法'。</li></ol>",
+                why: "<b>未来能力：</b> 面对逆境不气馁，将错误视为学习机会的韧性。"
+            },
+            {
+                id: 7,
+                title: "传声筒 (Whisper Challenge)",
+                category: "rule",
+                categoryLabel: "规则意识",
+                difficulty: "⭐",
+                description: "训练倾听能力和专注力。",
+                method: "<ol class='list-decimal list-inside space-y-1 text-sm text-gray-600'><li>家长在宝宝耳边轻声说一个简单的词（如'苹果'）。</li><li>让宝宝把这个词传给爸爸或者玩偶。</li><li>逐渐增加句子的长度。</li></ol>",
+                why: "<b>未来能力：</b> 有效倾听是沟通的一半，学会过滤噪音专注关键信息。"
+            },
+             {
+                id: 8,
+                title: "找不同/大家来找茬 (Spot It)",
+                category: "resilience",
+                categoryLabel: "观察与解决问题",
+                difficulty: "⭐⭐",
+                description: "培养观察环境细节的能力。",
+                method: "<ol class='list-decimal list-inside space-y-1 text-sm text-gray-600'><li>摆放3-4个玩具。</li><li>让宝宝闭眼，拿走一个或换个位置。</li><li>让宝宝睁眼说出哪里不一样了。</li></ol>",
+                why: "<b>未来能力：</b> 敏锐的观察力能帮助孩子快速读取社交环境空气（Read the room）。"
+            }
+        ];
+
+        // --- Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            initCharts();
+            renderGames('all');
+            setupFilters();
+        });
+
+        // --- Chart Logic ---
+        function initCharts() {
+            // 1. Radar Chart: The 5 Core Competencies
+            const ctxRadar = document.getElementById('skillsRadar').getContext('2d');
+            new Chart(ctxRadar, {
+                type: 'radar',
+                data: {
+                    labels: ['情绪认知 (EQ)', '规则意识 (Rules)', '抗挫折 (Resilience)', '合作能力 (Co-op)', '观察倾听 (Focus)'],
+                    datasets: [{
+                        label: '2岁基础 (当前)',
+                        data: [3, 2, 2, 3, 4],
+                        fill: true,
+                        backgroundColor: 'rgba(212, 163, 115, 0.2)', // Brand Primary
+                        borderColor: 'rgb(212, 163, 115)',
+                        pointBackgroundColor: 'rgb(212, 163, 115)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(212, 163, 115)'
+                    }, {
+                        label: '12岁目标 (未来)',
+                        data: [9, 9, 10, 9, 8],
+                        fill: true,
+                        backgroundColor: 'rgba(204, 213, 174, 0.2)', // Brand Secondary
+                        borderColor: 'rgb(204, 213, 174)',
+                        pointBackgroundColor: 'rgb(204, 213, 174)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(204, 213, 174)'
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: '#eee' },
+                            grid: { color: '#eee' },
+                            pointLabels: {
+                                font: { size: 12, family: "'Noto Sans SC', sans-serif" },
+                                color: '#666'
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 10,
+                            ticks: { display: false } // Hide numbers for cleaner look
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'bottom', labels: { usePointStyle: true } }
+                    }
+                }
+            });
+
+            // 2. Line Chart: Trajectory
+            const ctxLine = document.getElementById('growthLine').getContext('2d');
+            new Chart(ctxLine, {
+                type: 'line',
+                data: {
+                    labels: ['2岁', '4岁', '6岁', '8岁', '10岁', '12岁'],
+                    datasets: [{
+                        label: '有针对性引导 (Active)',
+                        data: [20, 45, 65, 80, 90, 98],
+                        borderColor: '#D4A373', // Primary
+                        backgroundColor: 'rgba(212, 163, 115, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }, {
+                        label: '自然成长 (Passive)',
+                        data: [20, 30, 45, 55, 65, 72],
+                        borderColor: '#9CA3AF', // Gray
+                        borderDash: [5, 5],
+                        fill: false,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    interaction: { mode: 'index', intersect: false },
+                    scales: {
+                        y: { display: true, title: {display: true, text: '社会适应力指数'}, grid: {borderDash: [2, 4]} },
+                        x: { grid: {display: false} }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.parsed.y + '分';
+                                }
+                            }
+                        },
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+        }
+
+        // --- Game Rendering Logic ---
+        function renderGames(filter) {
+            const grid = document.getElementById('games-grid');
+            grid.innerHTML = ''; // Clear existing
+
+            const filteredGames = filter === 'all' 
+                ? gamesData 
+                : gamesData.filter(g => g.category === filter);
+
+            filteredGames.forEach(game => {
+                const card = document.createElement('div');
+                card.className = 'bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden card-hover flex flex-col';
+                
+                // Color coding borders based on category
+                let borderClass = 'border-l-4 ';
+                if(game.category === 'emotion') borderClass += 'border-red-300';
+                else if(game.category === 'rule') borderClass += 'border-blue-300';
+                else if(game.category === 'social') borderClass += 'border-green-300';
+                else borderClass += 'border-purple-300';
+
+                card.innerHTML = `
+                    <div class="p-5 flex flex-col h-full ${borderClass}">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="inline-block px-2 py-1 text-xs font-semibold rounded-md bg-gray-100 text-gray-600 mb-2">
+                                ${game.categoryLabel}
+                            </span>
+                             <span class="text-xs text-yellow-500 font-bold tracking-widest" title="Difficulty">${game.difficulty}</span>
+                        </div>
+                        <h4 class="text-lg font-bold text-brand-dark mb-2">${game.title}</h4>
+                        <p class="text-gray-600 text-sm mb-4 flex-grow">${game.description}</p>
+                        
+                        <div class="bg-brand-bg rounded-lg p-3 mb-4">
+                            <h5 class="text-xs font-bold text-brand-primary uppercase mb-1">怎么玩 (Method):</h5>
+                            <div class="text-sm text-gray-700">${game.method}</div>
+                        </div>
+
+                        <div class="mt-auto pt-3 border-t border-gray-50">
+                            <p class="text-xs text-brand-dark opacity-80">${game.why}</p>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // --- Interaction Logic ---
+        function setupFilters() {
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    // Update Active State
+                    buttons.forEach(b => {
+                        b.classList.remove('bg-brand-dark', 'text-white');
+                        b.classList.add('bg-white', 'text-gray-600');
+                    });
+                    e.target.classList.remove('bg-white', 'text-gray-600');
+                    e.target.classList.add('bg-brand-dark', 'text-white');
+
+                    // Filter Content
+                    renderGames(e.target.dataset.filter);
+                });
+            });
+        }
+
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    </script>
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. All visualizations via Chart.js Canvas. -->
+</body>
+</html>

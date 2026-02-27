@@ -3,50 +3,257 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>启蒙故事 - 社交逻辑培养</title>
+    <title>社交启蒙故事集 - 深度互动版</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@300;400;700&display=swap" rel="stylesheet">
     <script>
-        tailwind.config = { theme: { extend: { colors: { brand: { bg: '#FDFBF7', secondary: '#CCD5AE', dark: '#353535' } } } } }
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        story: {
+                            bg: '#FAF7F2',
+                            paper: '#FFFFFF',
+                            ink: '#2C2C2C',
+                            accent: '#8B5E3C',
+                            leaf: '#6B705C'
+                        }
+                    }
+                }
+            }
+        }
     </script>
+    <style>
+        body { font-family: 'Noto Sans SC', sans-serif; background-color: #FAF7F2; color: #2C2C2C; }
+        .serif { font-family: 'Noto Serif SC', serif; }
+        .story-card { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .story-card:hover { transform: scale(1.02); shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        
+        /* 模态框动画 */
+        #story-modal { transition: opacity 0.3s ease; }
+        #modal-content { transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1); }
+        
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
 </head>
-<body class="bg-brand-bg p-4 sm:p-8">
-    <div class="max-w-5xl mx-auto">
-        <a href="index.html" class="text-gray-500 mb-6 inline-block">← 返回主页</a>
-        <header class="mb-12">
-            <h1 class="text-4xl font-bold text-brand-dark mb-4">📖 启蒙故事：构建宝宝的社交逻辑</h1>
-            <p class="text-gray-600">精选自世界文学遗产，重点在于故事后的“互动提问”</p>
-        </header>
+<body class="antialiased">
 
-        <div class="space-y-6">
-            <script>
-                const stories = [
-                    { t: "狮子与报恩的老鼠", o: "伊索寓言", m: "即使是弱小者也能帮助强大者，培养尊重与善良。" },
-                    { t: "拔萝卜", o: "俄罗斯民间故事", m: "人多力量大，理解‘协作’是解决难题的唯一方式。" },
-                    { t: "小红帽", o: "格林童话", m: "识别陌生人的社交意图，建立自我保护意识。" },
-                    { t: "彩虹色的花", o: "波兰心理绘本", m: "无私分享的快乐，理解慷慨带来的长期社交回报。" },
-                    { t: "三只小猪", o: "英国童话", m: "勤劳与长远规划，抵御即时诱惑。" },
-                    { t: "丑小鸭", o: "安徒生童话", m: "接纳自己的独特性，培养在排挤下的心理韧性。" },
-                    { t: "龟兔赛跑", o: "伊索寓言", m: "持之以恒的社交诚信与踏实。" },
-                    { t: "石头汤", o: "中欧传说", m: "通过分享与引导，把孤独的个体聚集成社区。" },
-                    { t: "金头发与三只熊", o: "英国童话", m: "尊重私人空间与他人物权的物理边界。" },
-                    { t: "狐狸与仙鹤", o: "拉封丹寓言", m: "真正的尊重是‘以对方需要的方式’去对待他人。" },
-                    { t: "猜猜我有多爱你", o: "现代经典", m: "情感表达的练习，让爱在交流中具象化。" },
-                    { t: "大卫不可以", o: "现代绘本", m: "理解规则的背后是爱，缓解对‘禁令’的社交抗拒。" }
-                ];
+    <!-- 导航栏 -->
+    <nav class="sticky top-0 z-40 bg-story-bg/90 backdrop-blur-sm border-b border-stone-200">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex justify-between items-center">
+            <a href="index.html" class="flex items-center text-story-accent font-bold">
+                <span class="mr-2">⇠</span> 返回主页
+            </a>
+            <span class="serif text-xl font-bold tracking-widest">童心故事馆</span>
+            <div class="w-8"></div>
+        </div>
+    </nav>
 
-                document.write(stories.map(s => `
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border-l-8 border-brand-secondary flex flex-col md:flex-row gap-6">
-                        <div class="md:w-1/4 font-bold text-brand-dark">${s.t}<br><span class="text-xs font-normal text-gray-400">来源：${s.o}</span></div>
-                        <div class="md:w-3/4">
-                            <p class="text-gray-600 text-sm mb-2">核心寓意：${s.m}</p>
-                            <div class="bg-brand-bg p-3 rounded text-xs text-brand-dark italic">
-                                建议问宝宝：“如果是你，你会愿意帮助大狮子吗？”
-                            </div>
-                        </div>
-                    </div>
-                `).join(''));
-            </script>
+    <!-- 头部 -->
+    <header class="py-16 px-4 text-center">
+        <h2 class="serif text-4xl font-bold mb-4 text-story-accent">12 颗社交启蒙的种子</h2>
+        <p class="text-stone-500 max-w-xl mx-auto leading-relaxed">每一个故事都是一次心灵的对话，让宝宝在聆听中理解分享、尊重与友爱。</p>
+    </header>
+
+    <!-- 故事网格 -->
+    <main class="max-w-7xl mx-auto px-4 pb-24">
+        <div id="story-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- 故事卡片由 JS 生成 -->
+        </div>
+    </main>
+
+    <!-- 详情弹出窗 -->
+    <div id="story-modal" class="fixed inset-0 bg-stone-900/60 z-50 opacity-0 pointer-events-none flex items-center justify-center p-4">
+        <div id="modal-content" class="bg-white w-full max-w-3xl max-h-[90vh] rounded-3xl overflow-y-auto no-scrollbar scale-90 relative">
+            <button onclick="closeModal()" class="absolute top-6 right-6 text-2xl text-stone-400 hover:text-story-accent transition">✕</button>
+            <div id="modal-body" class="p-8 md:p-12">
+                <!-- 故事详情填充处 -->
+            </div>
         </div>
     </div>
+
+    <script>
+        const stories = [
+            {
+                id: 1,
+                title: "狮子与报恩的老鼠",
+                origin: "伊索寓言",
+                target: "平等与尊重",
+                icon: "🦁",
+                summary: "森林之王狮子放走了一只小老鼠。后来狮子被猎人网住，竟是小老鼠咬断绳索救了他。",
+                content: "在茂密的森林里，强大的狮子正在睡觉。一只小老鼠不小心跑到了他的爪子上。狮子醒了，想要吃掉他。小老鼠求饶说：‘求求你放了我，也许有一天我能报答你。’狮子哈哈大笑，心想：‘你这么小，能帮我什么？’但他还是放了老鼠。没过多久，狮子真的被猎人的大网抓住了，他大声吼叫却逃不出来。小老鼠听到声音跑过来，用尖尖的小牙齿‘嘎吱嘎吱’咬断了绳索，狮子终于自由了！",
+                interaction: [
+                    "<b>观察力：</b>‘宝宝你看，狮子那么大，老鼠那么小，小老鼠害怕吗？’",
+                    "<b>换位思考：</b>‘如果你是狮子，你会放走小老鼠吗？’",
+                    "<b>行为引导：</b>‘以后在幼儿园遇到比你小的弟弟妹妹，你会愿意保护他们吗？’"
+                ]
+            },
+            {
+                id: 2,
+                title: "彩虹色的花",
+                origin: "波兰绘本",
+                target: "无私与分享",
+                icon: "🌸",
+                summary: "一朵彩虹色的花将自己的花瓣送给了口渴的蚂蚁、寒冷的蝉等，最后她在雪地里凋谢，却活在大家心里。",
+                content: "早春的田野上，开出了一朵彩虹色的花。路过的小蚂蚁想过河，花儿送出一片红瓣当小船；口渴的小蝉想喝水，花儿送出绿瓣收集露珠；怕冷的小老鼠想取暖，花儿送出黄瓣当棉被。秋天到了，花儿的花瓣都送光了，她在寒风中渐渐枯萎。冬天的初雪覆盖了田野，但被她帮助过的小动物们聚在一起，都在心里想念着那朵美丽又善良的彩虹花。到了第二年春天，彩虹花又在阳光下开得更灿烂了！",
+                interaction: [
+                    "<b>情感共鸣：</b>‘花瓣送光了，小动物们开心了，花儿开心吗？’",
+                    "<b>联想生活：</b>‘如果你有两块饼干，遇到好朋友没带吃的，你会怎么做？’",
+                    "<b>记忆互动：</b>‘刚才小花把黄瓣送给谁当棉被了？’"
+                ]
+            },
+            {
+                id: 3,
+                title: "拔萝卜",
+                origin: "俄罗斯故事",
+                target: "团队协作",
+                icon: "🥕",
+                summary: "老爷爷拔不动萝卜，叫来了老奶奶、小孙女、小狗、小猫，最后在小老鼠加入后，大家终于拔出了大萝卜。",
+                content: "地里长了一个超级大的萝卜，老爷爷去拔，‘嗨哟嗨哟’拔不动。他喊来老奶奶，老奶奶拽着老爷爷，老爷爷拽着萝卜，还是拔不动。于是喊来小孙女、小狗、小猫，大家连成一排用力，萝卜还是稳稳的。最后，最小的小老鼠跑来，抓住了小猫的尾巴。大家齐心协力：‘一二三，拔！’砰的一声，大萝卜终于被拔出来啦！大家开心地围着大萝卜跳起了舞。",
+                interaction: [
+                    "<b>韵律互动：</b>让宝宝模仿拔萝卜的动作，一起喊‘嗨哟、嗨哟’。",
+                    "<b>逻辑理解：</b>‘为什么只有老爷爷一个人拔不动，大家在一起就拔动了呢？’",
+                    "<b>礼仪教育：</b>‘当大家一起干完活，他们会对小老鼠说什么？’"
+                ]
+            },
+            {
+                id: 4,
+                title: "小红帽",
+                origin: "格林童话",
+                target: "警觉与边界",
+                icon: "🐺",
+                summary: "小红帽在森林里遇到了大灰狼，她因为告诉了大灰狼去外婆家的路而陷入危险。",
+                content: "小红帽带着点心去看生病的外婆。妈妈叮嘱：‘要在路上走，不要随便和陌生人说话。’可是森林里的花儿太美了，大灰狼走过来温柔地打招呼，小红帽忘记了妈妈的话，告诉大灰狼外婆住在三棵大橡树下。大灰狼先跑去外婆家，装成外婆的样子等小红帽。幸好最后勇敢的猎人赶来救出了她们。小红帽想：‘以后我一定要听妈妈的话，保护好自己。’",
+                interaction: [
+                    "<b>安全意识：</b>‘如果在游乐场有不认识的人给你糖吃，你要怎么做？’",
+                    "<b>判断力：</b>‘你觉得大灰狼是好人还是坏人？为什么？’",
+                    "<b>规则遵守：</b>‘小红帽这次做错了哪一件事？（告诉陌生人家庭地址）’"
+                ]
+            },
+            {
+                id: 5,
+                title: "猜猜我有多爱你",
+                origin: "现代经典",
+                target: "情感表达",
+                icon: "🐰",
+                summary: "大兔子和小兔子用各种身体动作比喻对彼此的爱，最后小兔子说：‘我爱你直到月亮那里。’",
+                content: "小栗色兔子该睡觉了，他紧紧抓着大兔子的耳朵，想让大兔子听他说：‘猜猜我有多爱你？’‘喔，这我可猜不出来。’大兔子说。小兔子把手臂张开到不能再开：‘我有这么多爱你。’大兔子的手臂更长：‘我有这么多爱你。’小兔子跳得很高，大兔子跳得更高。最后小兔子困了，看着月亮说：‘我爱你直到月亮那里。’大兔子亲亲他：‘我爱你直到月亮那里，再回到这里。’",
+                interaction: [
+                    "<b>肢体模仿：</b>跟宝宝一起张开双臂，比比谁的‘爱’更长。",
+                    "<b>语言启发：</b>‘除了月亮，你还觉得爱像什么？（像大海、像草地）’",
+                    "<b>睡前告白：</b>亲亲宝宝的额头，说出那句最温暖的‘我也爱你’。"
+                ]
+            },
+            {
+                id: 6,
+                title: "狐狸与仙鹤的午餐",
+                origin: "拉封丹寓言",
+                target: "换位思考",
+                icon: "🥣",
+                summary: "狐狸请仙鹤吃饭用平盘，仙鹤吃不到；仙鹤请狐狸吃饭用长颈瓶，狐狸也吃不到。",
+                content: "狐狸想开个玩笑，请仙鹤吃饭。他把汤盛在平平的大盘子里，仙鹤的长嘴巴怎么也喝不到。狐狸自己舔得干干净净，仙鹤饿着肚子回家了。第二天，仙鹤请狐狸去喝鲜美的鱼汤，盛在细长的瓶子里，仙鹤喝得很香，狐狸的头却塞不进瓶口，只能看着流口水。仙鹤说：‘狐狸先生，只有当你考虑到别人的需要时，别人才会考虑到你哦。’狐狸红着脸低下了头。",
+                interaction: [
+                    "<b>移情训练：</b>‘仙鹤用大盘子喝不到汤，他心里会难过吗？’",
+                    "<b>是非观：</b>‘你觉得狐狸的做法对吗？为什么？’",
+                    "<b>行为建议：</b>‘如果你请小猫吃东西，你应该准备鱼还是准备骨头？’"
+                ]
+            },
+            // ... 后续故事简化描述逻辑一致
+            { id: 7, title: "三只小猪", origin: "经典童话", target: "社交责任感", icon: "🐷", summary: "面对大灰狼，只有老三辛苦盖的砖头房保护了大家。", content: "三只小猪离开妈妈盖房子。老大图快盖了草房，老二盖了木头房，老三最勤劳，盖了结实的砖头房。大灰狼吹倒了草房和木房，老大老二逃到老三家。砖房真稳，大灰狼怎么也进不去，大家安全了！", interaction: ["<b>劳动教育：</b>‘为什么只有老三的房子没倒？’", "<b>友谊互动：</b>‘当哥哥们没房子住，老三是怎么做的？’", "<b>角色扮演：</b>一起模仿大灰狼吹气的声音。"] },
+            { id: 8, title: "丑小鸭", origin: "安徒生童话", target: "接纳不同", icon: "🦢", summary: "被排挤的丑小鸭最后发现自己是美丽的白天鹅。", content: "鸭群里有一只灰灰的大鸭子，大家都嘲笑他丑。丑小鸭很难过，独自流浪。春天到了，他在湖水里看到自己的倒影——原来他不是丑小鸭，而是一只高贵的白天鹅！", interaction: ["<b>审美引导：</b>‘你觉得灰灰的丑小鸭不漂亮吗？其实他很特别。’", "<b>心理建设：</b>‘如果有人说你不好看，你应该难过吗？’", "<b>包容教育：</b>‘如果我们班里有一个和大家长得不一样的宝宝，我们要跟他玩吗？’"] },
+            { id: 9, title: "龟兔赛跑", origin: "伊索寓言", target: "谦虚与恒心", icon: "🐢", summary: "骄傲的兔子输给了坚持不懈的乌龟。", content: "兔子跑得飞快，嘲笑乌龟慢。比赛中，兔子觉得领先太多，就在树下睡着了。乌龟一步一步，从不休息。等兔子醒来，乌龟已经过了终点！", interaction: ["<b>性格认知：</b>‘兔子为什么会输？’", "<b>正面激励：</b>‘如果你做一件事很难，你要学乌龟还是学兔子？’", "<b>社交礼仪：</b>‘赢了比赛后，乌龟应该对兔子说什么？’"] },
+            { id: 10, title: "石头汤", origin: "中欧传说", target: "共享的智慧", icon: "🍲", summary: "三个士兵通过煮‘石头汤’，让吝啬的村民们拿出了蔬菜一起分享美食。", content: "三个士兵来到村子，大家都不肯给吃的。士兵们架起锅煮石头，说在煮‘石头汤’。村民好奇，有的拿来胡萝卜，有的拿来肉。最后，全村人一起喝到了世界上最美味的一锅汤。", interaction: ["<b>分享快乐：</b>‘最后大家一起喝汤开心吗？’", "<b>社交技巧：</b>‘士兵们是怎么让大家愿意拿出食物的？’", "<b>美食互动：</b>‘你想在咱们家的汤里加什么好吃的？’"] },
+            { id: 11, title: "金头发与三只熊", origin: "英国童话", target: "隐私与礼貌", icon: "🏠", summary: "小女孩闯进熊家，乱动碗、椅子和床，最后被发现。", content: "金头发小女孩闯进森林里的熊家。她没经过允许就喝了熊宝宝的粥，坐坏了椅子，还睡在熊床上。三只熊回来很生气。金头发吓得跳窗逃跑了，她意识到不请自入是不礼貌的。", interaction: ["<b>权属意识：</b>‘没经过爸爸允许，可以乱翻爸爸的书包吗？’", "<b>礼貌教育：</b>‘去别人家玩，第一步应该做什么？（敲门）’", "<b>换位思考：</b>‘如果你心爱的玩具被别人弄坏了，你会生气吗？’"] },
+            { id: 12, title: "大卫，不可以", origin: "现代绘本", target: "理解社交禁令", icon: "👶", summary: "大卫总是调皮捣蛋，但最后妈妈依然紧紧抱住他。", content: "大卫在墙上乱画，把家里弄得乱七八糟，妈妈总说‘不可以！’。最后大卫打破了花瓶躲在角落。妈妈走过去，张开双臂说：‘大卫，快过来，妈妈爱你。’大卫明白了，规矩是为了保护他，而妈妈的爱永远都在。", interaction: ["<b>情绪舒缓：</b>‘妈妈说‘不可以’时，你是害怕还是不开心？’", "<b>理解规则：</b>‘为什么妈妈不让大卫在墙上画画？’", "<b>爱的联结：</b>给宝宝一个大大的拥抱，像大卫妈妈一样。"] }
+        ];
+
+        // 生成网格
+        const grid = document.getElementById('story-grid');
+        stories.forEach(s => {
+            const card = document.createElement('div');
+            card.className = "story-card bg-story-paper p-8 rounded-[2rem] shadow-sm border border-stone-100 cursor-pointer flex flex-col h-full";
+            card.onclick = () => openModal(s.id);
+            card.innerHTML = `
+                <div class="text-5xl mb-6">${s.icon}</div>
+                <div class="text-xs font-bold text-story-accent/60 mb-2 tracking-widest uppercase">主题：${s.target}</div>
+                <h3 class="serif text-2xl font-bold mb-4">${s.title}</h3>
+                <p class="text-stone-500 text-sm leading-relaxed flex-grow">${s.summary}</p>
+                <div class="mt-6 pt-6 border-t border-stone-50 text-story-accent font-bold text-sm">
+                    开始阅读 ➔
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+
+        function openModal(id) {
+            const s = stories.find(x => x.id === id);
+            const modalBody = document.getElementById('modal-body');
+            modalBody.innerHTML = `
+                <div class="text-center mb-10">
+                    <div class="text-6xl mb-4">${s.icon}</div>
+                    <div class="text-stone-400 text-sm mb-2">《${s.origin}》</div>
+                    <h2 class="serif text-4xl font-bold text-story-ink">${s.title}</h2>
+                </div>
+
+                <div class="space-y-10">
+                    <section>
+                        <h4 class="text-xs font-bold text-story-accent uppercase tracking-widest mb-4 flex items-center">
+                            <span class="w-8 h-px bg-story-accent/30 mr-2"></span> 故事核心目的
+                        </h4>
+                        <p class="text-lg text-story-ink leading-relaxed font-medium bg-story-bg p-6 rounded-2xl border-l-4 border-story-accent">
+                            ${s.target}：${s.summary}
+                        </p>
+                    </section>
+
+                    <section>
+                        <h4 class="text-xs font-bold text-story-accent uppercase tracking-widest mb-4 flex items-center">
+                            <span class="w-8 h-px bg-story-accent/30 mr-2"></span> 故事正文内容
+                        </h4>
+                        <div class="serif text-xl text-stone-700 leading-loose space-y-4 indent-8">
+                            ${s.content}
+                        </div>
+                    </section>
+
+                    <section class="bg-stone-50 p-8 rounded-3xl border border-stone-100">
+                        <h4 class="text-xs font-bold text-story-accent uppercase tracking-widest mb-6 text-center">
+                            ☁️ 亲子互动提问
+                        </h4>
+                        <div class="grid gap-4">
+                            ${s.interaction.map((item, idx) => `
+                                <div class="bg-white p-4 rounded-xl shadow-sm text-sm text-stone-600 leading-relaxed border border-stone-50">
+                                    ${item}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </section>
+                </div>
+
+                <div class="mt-12 text-center">
+                    <button onclick="closeModal()" class="px-12 py-4 bg-story-accent text-white rounded-full font-bold shadow-lg shadow-story-accent/20 hover:scale-105 transition">
+                        晚安，好梦
+                    </button>
+                </div>
+            `;
+
+            const modal = document.getElementById('story-modal');
+            const content = document.getElementById('modal-content');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            content.classList.remove('scale-90');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('story-modal');
+            const content = document.getElementById('modal-content');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            content.classList.add('scale-90');
+            document.body.style.overflow = '';
+        }
+
+        // 点击背景关闭
+        document.getElementById('story-modal').onclick = (e) => {
+            if(e.target.id === 'story-modal') closeModal();
+        };
+    </script>
 </body>
 </html>

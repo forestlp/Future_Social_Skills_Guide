@@ -3,48 +3,360 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>游戏实验室 - 全球 12 经典训练</title>
+    <title>社交力游戏实验室 - 深度玩法指南</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <script>
-        tailwind.config = { theme: { extend: { colors: { brand: { bg: '#FDFBF7', primary: '#D4A373', dark: '#353535' } } } } }
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            bg: '#FDFBF7',
+                            primary: '#D4A373',
+                            secondary: '#CCD5AE',
+                            accent: '#E9EDC9',
+                            dark: '#353535'
+                        }
+                    }
+                }
+            }
+        }
     </script>
+    <style>
+        body { font-family: 'Noto Sans SC', sans-serif; background-color: #FDFBF7; }
+        .game-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .game-card:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
+        
+        /* 详情抽屉动画 */
+        #detail-overlay { transition: opacity 0.3s ease; }
+        #detail-panel { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
 </head>
-<body class="bg-brand-bg p-4 sm:p-8">
-    <div class="max-w-6xl mx-auto">
-        <a href="index.html" class="text-brand-primary mb-6 inline-block">← 返回主页</a>
-        <header class="mb-12 text-center">
-            <h1 class="text-4xl font-bold text-brand-dark mb-4">🧪 全球 12 经典社交力训练</h1>
-            <p class="text-gray-600">整理自蒙特梭利、华德福及现代行为心理学研究</p>
-        </header>
+<body class="antialiased text-brand-dark">
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- 游戏 1-12 数据对象 -->
-            <script>
-                const games = [
-                    { title: "红灯停绿灯行", origin: "全球通行", goal: "冲动抑制", desc: "训练宝宝在兴奋时瞬间停下，培养前额叶皮层的控制力。" },
-                    { title: "静寂游戏", origin: "蒙特梭利", goal: "自我觉察", desc: "全体保持安静，倾听微小的声音，培养耐心与内心平衡。" },
-                    { title: "小镜子模仿", origin: "发展心理学", goal: "共情基础", desc: "模仿对方的表情，激活镜像神经元，理解他人感受。" },
-                    { title: "角色杂货铺", origin: "传统育儿", goal: "社会契约", desc: "模拟买卖行为，学习礼貌用语（请、谢谢）与交换原则。" },
-                    { title: "传递水杯", origin: "华德福", goal: "团队责任", desc: "多人围圈传递装满水的杯子而不洒出，体验团队协作。" },
-                    { title: "情绪变变变", origin: "美国SEL课程", goal: "情绪命名", desc: "看图卡识别‘沮丧’‘惊喜’等复杂情绪并说出名称。" },
-                    { title: "小动物搬家", origin: "感统训练", goal: "合作解决问题", desc: "与家长合力搬运巨大的‘家’（纸箱），学习协调步伐。" },
-                    { title: "等一下钟", origin: "意志力训练", goal: "延迟满足", desc: "在铃声响前不能吃饼干，每成功一次获得一个小奖励。" },
-                    { title: "小小解说员", origin: "英国思维训练", goal: "叙事能力", desc: "通过图片讲出发生的故事，理解社会行为的前因后果。" },
-                    { title: "轮流滑梯", origin: "公园社交", goal: "规则遵循", desc: "在模拟场景中练习排队，理解‘权利是有序的’。" },
-                    { title: "玩偶调解员", origin: "瑞典教育", goal: "冲突处理", desc: "用玩偶演习吵架，让宝宝想办法让它们‘握手言和’。" },
-                    { title: "寻找宝藏", origin: "探险游戏", goal: "观察与指令", desc: "根据家长提供的线索找东西，培养对社交指令的敏感度。" }
-                ];
+    <!-- 顶部导航 -->
+    <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-40 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex justify-between items-center">
+            <a href="index.html" class="flex items-center text-brand-primary font-bold hover:opacity-80 transition">
+                <span class="mr-2 text-xl">←</span> 返回主页
+            </a>
+            <h1 class="text-lg font-bold tracking-tight">🧪 12 经典社交游戏实验室</h1>
+            <div class="w-10"></div> <!-- 占位 -->
+        </div>
+    </nav>
 
-                document.write(games.map((g, i) => `
-                    <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 hover:scale-105 transition-transform">
-                        <div class="text-brand-primary font-bold mb-2">#${i+1} ${g.origin}</div>
-                        <h3 class="text-xl font-bold mb-2">${g.title}</h3>
-                        <div class="bg-brand-bg text-xs px-2 py-1 inline-block rounded mb-4 text-brand-primary">核心目标：${g.goal}</div>
-                        <p class="text-sm text-gray-600">${g.desc}</p>
-                    </div>
-                `).join(''));
-            </script>
+    <!-- 页面头部 -->
+    <header class="py-12 px-4 bg-brand-accent/20">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-4">开启宝宝的社交超能力</h2>
+            <p class="text-gray-600">点击下方卡片，查看每个游戏的深度操作指南、专家点评及互动话术。</p>
+        </div>
+    </header>
+
+    <!-- 游戏卡片网格 -->
+    <main class="max-w-7xl mx-auto px-4 py-12">
+        <div id="game-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- 游戏卡片由JS生成 -->
+        </div>
+    </main>
+
+    <!-- 详情弹出面板 -->
+    <div id="detail-overlay" class="fixed inset-0 bg-black/50 z-50 opacity-0 pointer-events-none flex justify-end">
+        <div id="detail-panel" class="w-full max-w-2xl bg-white h-full shadow-2xl translate-x-full overflow-y-auto no-scrollbar">
+            <!-- 详细内容由JS填充 -->
+            <div id="detail-content" class="p-8">
+                <!-- 内容加载区域 -->
+            </div>
         </div>
     </div>
+
+    <script>
+        // 12个游戏的详尽数据
+        const games = [
+            {
+                id: 1,
+                title: "红灯停绿灯行",
+                origin: "全球通行",
+                tag: "冲动控制",
+                icon: "🚦",
+                purpose: "训练大脑前额叶皮层，提升自控力，学会抑制冲动行为（如随手打人或乱跑）。",
+                socialValue: "让孩子理解社会环境中的‘指令’与‘反应’，是遵守公共规则的基石。",
+                rules: [
+                    "划定起点线和终点线。",
+                    "家长背对孩子喊‘绿灯’，孩子快速向前跑。",
+                    "家长突然转身喊‘红灯’，孩子必须瞬间‘冻结’不动。",
+                    "如果动了，就得回到起点重来。"
+                ],
+                interaction: "<b>引导话术：</b>‘宝宝，你的小腿像有刹车一样，红灯一响立刻锁住，真厉害！’<br><b>难度升级：</b>加入‘黄灯’，要求慢动作行走，锻炼精细肌肉控制。"
+            },
+            {
+                id: 2,
+                title: "静寂游戏",
+                origin: "蒙特梭利",
+                tag: "自我意识",
+                icon: "🤫",
+                purpose: "培养专注力与心理平静度，让孩子学会在集体环境中等待。",
+                socialValue: "学会倾听而非插话，尊重他人的空间与宁静，是高阶社交修养。",
+                rules: [
+                    "邀请宝宝一起坐在垫子上，闭上眼睛。",
+                    "设定一个沙漏或计时器（30秒-1分钟）。",
+                    "全体保持绝对安静，尝试听窗外的鸟鸣、时钟的滴答声。",
+                    "结束后，低声分享你听到了什么。"
+                ],
+                interaction: "<b>关键点：</b>不要强制执行，而是用‘我们来听听世界在说什么’这种神秘感引导。"
+            },
+            {
+                id: 3,
+                title: "小镜子模仿",
+                origin: "发展心理学",
+                tag: "共情基础",
+                icon: "🪞",
+                purpose: "激活镜像神经元，让宝宝通过表情感知他人的内心世界。",
+                socialValue: "这是理解‘同理心’的第一步——看到别人的悲伤，自己也能感同身受。",
+                rules: [
+                    "面对面坐着，家长做一个夸张的表情（如大笑、难过、吃惊）。",
+                    "让宝宝像镜子一样完美复制你的表情。",
+                    "交换角色，由宝宝发起表情，家长模仿。"
+                ],
+                interaction: "<b>互动话术：</b>‘当你皱眉头的时候，妈妈感觉你心里好像有点不开心，是吗？’"
+            },
+            {
+                id: 4,
+                title: "角色杂货铺",
+                origin: "传统育儿",
+                tag: "社会契约",
+                icon: "🛒",
+                purpose: "通过模拟金钱与货物的交换，理解社会分工与礼仪。",
+                socialValue: "学习使用社交礼貌用语，理解‘权利是有代价的’（交换原则）。",
+                rules: [
+                    "准备一些玩具和纸币（或卡片）。",
+                    "家长当收银员，宝宝当顾客。",
+                    "宝宝必须说‘请问这个多少钱？’并支付才能拿走玩具。",
+                    "强调‘谢谢’和‘再见’。"
+                ],
+                interaction: "<b>技巧：</b>模拟一些小冲突，比如‘钱不够怎么办？’，引导宝宝商量解决。"
+            },
+            {
+                id: 5,
+                title: "传递水杯",
+                origin: "华德福教育",
+                tag: "团队协作",
+                icon: "🥛",
+                purpose: "锻炼肢体协调与空间知觉，理解‘我的动作会影响他人’。",
+                socialValue: "建立共同目标感，理解自己在团队中的环节作用。",
+                rules: [
+                    "找一个装了八分满水的透明杯子。",
+                    "全家人围成一圈，轻轻地将水杯传给下一个人。",
+                    "目标是水一滴也不洒出来，全过程保持安静。"
+                ],
+                interaction: "<b>提升：</b>增加干扰项，如背景音乐忽大忽小，看大家是否依然专注。"
+            },
+            {
+                id: 6,
+                title: "情绪变变变",
+                origin: "SEL情感学习",
+                tag: "情绪命名",
+                icon: "🎭",
+                purpose: "教孩子给抽象的感觉打上‘标签’，降低因无法表达而产生的愤怒。",
+                socialValue: "能够清晰表达自身需求和情感，是减少社交冲突最有效的手段。",
+                rules: [
+                    "准备各种表情卡片（愤怒、害羞、兴奋、委屈）。",
+                    "抽一张卡片，讲一个发生过的小故事。如：‘今天冰淇淋掉了，宝宝很难过。’",
+                    "让宝宝选出对应的表情。"
+                ],
+                interaction: "<b>专家建议：</b>当宝宝真实发脾气时，引导他：‘你现在的感觉是这张卡片（愤怒）吗？’"
+            },
+            {
+                id: 7,
+                title: "小动物搬家",
+                origin: "感统训练",
+                tag: "协同解决",
+                icon: "📦",
+                purpose: "通过大肌肉协作，练习与他人同步步调。",
+                socialValue: "培养‘共生意识’——有的事情一个人做不到，两个人必须合拍。",
+                rules: [
+                    "给一个大纸箱两边系上绳子，或者两人合抬一个长枕头。",
+                    "在枕头上放一个玩偶当‘小动物’。",
+                    "两人必须步调一致，确保玩偶不掉下来，把‘家’搬到终点。"
+                ],
+                interaction: "<b>话术：</b>‘我们要一起走哦，如果你走太快，妈妈就跟不上了，小动物会掉的。’"
+            },
+            {
+                id: 8,
+                title: "等一下钟",
+                origin: "意志力训练",
+                tag: "延迟满足",
+                icon: "⏳",
+                purpose: "著名的‘棉花糖实验’简化版，培养孩子对抗诱惑的能力。",
+                socialValue: "学会在社交中等待轮候，不因为得不到立即满足而崩溃。",
+                rules: [
+                    "给宝宝一个他很喜欢的零食，放在桌子上。",
+                    "设置一个3-5分钟的定时器。",
+                    "告诉他：‘如果等铃声响了再吃，你可以得到两份；如果现在吃，只有一份。’"
+                ],
+                interaction: "<b>陪伴：</b>等待期间家长可以陪孩子唱歌或数数，教他转移注意力的方法。"
+            },
+            {
+                id: 9,
+                title: "小小解说员",
+                origin: "英国思维导图",
+                tag: "叙事逻辑",
+                icon: "🗣️",
+                purpose: "提升语言组织能力，学习理解社会事件的‘逻辑链’。",
+                socialValue: "向他人解释清楚发生了什么，是解决社交误会的关键能力。",
+                rules: [
+                    "找一本只有图片的绘本或照片。",
+                    "让宝宝观察图片，说出：‘谁在干什么？他为什么这么做？’",
+                    "家长补充细节，完善逻辑。"
+                ],
+                interaction: "<b>互动：</b>多问‘你觉得那个小朋友为什么哭呀？’引导宝宝观察背景细节。"
+            },
+            {
+                id: 10,
+                title: "轮流滑梯",
+                origin: "公共行为准则",
+                tag: "规则遵循",
+                icon: "🛝",
+                purpose: "将抽象的‘公平’概念具象化为排队行为。",
+                socialValue: "理解资源有限时，有序的分配才能保证每个人的权利。",
+                rules: [
+                    "在家里设置一个简单的‘滑道’或狭窄通道。",
+                    "全家人排队，每个人玩一次必须回到队尾。",
+                    "使用口令：‘现在轮到爸爸了，宝宝请等待。’"
+                ],
+                interaction: "<b>仪式感：</b>可以使用一个‘通行证’，拿到证的人才能通行，传给下一个人。"
+            },
+            {
+                id: 11,
+                title: "玩偶调解员",
+                origin: "北欧情商教育",
+                tag: "冲突处理",
+                icon: "🧸",
+                purpose: "利用第三方视角（投影）练习冲突解决方法。",
+                socialValue: "学会协商、妥协和道歉，不再用哭闹解决社交问题。",
+                rules: [
+                    "家长操纵两个玩偶，演示它们因为抢玩具吵架了。",
+                    "停下来问宝宝：‘哎呀，它们都想玩，怎么办呢？’",
+                    "引导宝宝想出：轮流玩、一起玩、或者换一个玩。"
+                ],
+                interaction: "<b>鼓励：</b>如果宝宝想出了好办法，让玩偶夸奖宝宝：‘谢谢你救了我们的友谊！’"
+            },
+            {
+                id: 12,
+                title: "寻找宝藏",
+                origin: "探险游戏",
+                tag: "信息提取",
+                icon: "🗺️",
+                purpose: "训练听觉注意力和对复杂指令的执行力。",
+                socialValue: "能够准确接收他人的社交信息，不因理解偏差而产生挫败感。",
+                rules: [
+                    "藏好一个小宝藏。",
+                    "分步给出指令：‘先去厨房椅子下看，再去书房门口找。’",
+                    "指令可以从一个增加到三个连续动作。"
+                ],
+                interaction: "<b>技巧：</b>当宝宝找错时，用‘冷热游戏’提示（离宝藏近了就说‘热热热’，远了就说‘冰冰冷’）。"
+            }
+        ];
+
+        // 生成卡片
+        const grid = document.getElementById('game-grid');
+        games.forEach(game => {
+            const card = document.createElement('div');
+            card.className = "game-card bg-white rounded-3xl p-6 cursor-pointer border border-gray-100 flex flex-col items-center text-center shadow-sm";
+            card.onclick = () => showDetail(game.id);
+            card.innerHTML = `
+                <div class="text-4xl mb-4 p-4 bg-brand-bg rounded-full">${game.icon}</div>
+                <div class="text-xs font-bold text-brand-primary mb-1 uppercase tracking-wider">${game.tag}</div>
+                <h3 class="text-xl font-bold mb-3">${game.title}</h3>
+                <p class="text-gray-500 text-sm leading-relaxed mb-4">${game.purpose.substring(0, 30)}...</p>
+                <span class="text-brand-primary font-medium text-sm flex items-center">
+                    查看详细教学 <span class="ml-1">→</span>
+                </span>
+            `;
+            grid.appendChild(card);
+        });
+
+        // 显示详情逻辑
+        function showDetail(id) {
+            const game = games.find(g => g.id === id);
+            const content = document.getElementById('detail-content');
+            
+            content.innerHTML = `
+                <div class="flex justify-between items-start mb-8">
+                    <div>
+                        <div class="inline-block px-3 py-1 bg-brand-accent text-brand-dark text-xs font-bold rounded-full mb-2">${game.origin} 经典</div>
+                        <h2 class="text-3xl font-bold">${game.title}</h2>
+                    </div>
+                    <button onclick="closeDetail()" class="text-2xl hover:text-brand-primary transition">✕</button>
+                </div>
+
+                <div class="space-y-8">
+                    <section class="bg-brand-bg p-6 rounded-2xl">
+                        <h4 class="font-bold text-brand-primary flex items-center mb-3">
+                            🎯 核心目的与社交价值
+                        </h4>
+                        <p class="text-gray-700 leading-relaxed font-medium mb-3">${game.purpose}</p>
+                        <p class="text-gray-600 text-sm italic">${game.socialValue}</p>
+                    </section>
+
+                    <section>
+                        <h4 class="font-bold text-brand-dark flex items-center mb-4">
+                            📝 经典玩法规则
+                        </h4>
+                        <ul class="space-y-4">
+                            ${game.rules.map((rule, idx) => `
+                                <li class="flex items-start">
+                                    <span class="bg-brand-secondary text-brand-dark w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold mr-3 mt-0.5 flex-shrink-0">${idx + 1}</span>
+                                    <span class="text-gray-700">${rule}</span>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </section>
+
+                    <section class="border-t border-gray-100 pt-8">
+                        <h4 class="font-bold text-brand-dark flex items-center mb-4">
+                            🤝 亲子互动指南
+                        </h4>
+                        <div class="bg-brand-accent/30 p-5 rounded-2xl border-l-4 border-brand-primary">
+                            <div class="text-gray-700 text-sm leading-relaxed">
+                                ${game.interaction}
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="mt-12 text-center">
+                    <button onclick="closeDetail()" class="w-full py-4 bg-brand-dark text-white rounded-2xl font-bold hover:opacity-90 transition">
+                        我学会了，去实践！
+                    </button>
+                </div>
+            `;
+
+            // 动画
+            const overlay = document.getElementById('detail-overlay');
+            const panel = document.getElementById('detail-panel');
+            overlay.classList.remove('opacity-0', 'pointer-events-none');
+            panel.classList.remove('translate-x-full');
+            document.body.style.overflow = 'hidden'; // 禁止底页滚动
+        }
+
+        function closeDetail() {
+            const overlay = document.getElementById('detail-overlay');
+            const panel = document.getElementById('detail-panel');
+            overlay.classList.add('opacity-0', 'pointer-events-none');
+            panel.classList.add('translate-x-full');
+            document.body.style.overflow = '';
+        }
+
+        // 点击空白处关闭
+        document.getElementById('detail-overlay').onclick = (e) => {
+            if(e.target.id === 'detail-overlay') closeDetail();
+        };
+    </script>
+    
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. Interactive logic powered by Vanilla JS. -->
 </body>
 </html>
